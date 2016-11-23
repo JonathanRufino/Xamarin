@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et_nome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/nome"
+        android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/et_data_nascimento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/data_nascimento"
+        android:inputType="date"
+        android:maxLength="10" />
+    <EditText
+        android:id="@+id/et_cpf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cpf"
+        android:inputType="number"
+        android:maxLength="11" />
+    <EditText
+        android:id="@+id/et_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/senha"
+        android:inputType="textPassword" />
+    <Button
+        android:id="@+id/b_cadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/cadastrar" />
+</LinearLayout>

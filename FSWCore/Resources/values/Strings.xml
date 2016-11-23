@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">FSWCore</string>
+    <string name="nome_app">FSWCore</string>
+
+    <string name="cpf">CPF</string>
+    <string name="senha">Senha</string>
+    <string name="cadastre_se">Cadastre-se</string>
+    <string name="logar">Entrar</string>
+  <string name="nome">Nome</string>
+  <string name="sobrenome">Sobrenome</string>
+  <string name="data_nascimento">Data de Nascimento</string>
+  <string name="senha">Senha</string>
+  <string name="cadastrar">Cadastrar</string>
 </resources>
