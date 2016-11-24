@@ -50,9 +50,6 @@ namespace FSWCore
 
                 Console.WriteLine("Salvando Usuário: " + usuario.toString());
 
-                DatabaseHelper db = new DatabaseHelper();
-                db.criarDB();
-
                 ProgressDialog barraProgresso = new ProgressDialog(context);
                 barraProgresso.SetMessage("Registrando usuário.");
                 barraProgresso.SetProgressStyle(ProgressDialogStyle.Spinner);
@@ -62,6 +59,7 @@ namespace FSWCore
                 {
                     try
                     {
+                        DatabaseHelper db = new DatabaseHelper();
                         bool sucesso = db.salvarUsuario(usuario);
 
                         if (!sucesso)
@@ -79,9 +77,7 @@ namespace FSWCore
 
                             HomeFragment homeFragment = new HomeFragment(context);
 
-                            var gerenciadorFragments = FragmentManager.BeginTransaction();
-                            gerenciadorFragments.Replace(Resource.Id.main_layout, homeFragment);
-                            gerenciadorFragments.Commit();
+                            ((MainActivity)context).trocarFragment(homeFragment, "HomeFragment");
                         }
                     }
                     catch (RegistroDuplicadoException excecao)

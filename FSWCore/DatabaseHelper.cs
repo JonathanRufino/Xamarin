@@ -75,7 +75,7 @@ namespace FSWCore
         {
             try
             {
-                return db.Get<Usuario>(CPF);
+                return db.Find<Usuario>(CPF);
             }
             catch (SQLiteException excecao)
             {
