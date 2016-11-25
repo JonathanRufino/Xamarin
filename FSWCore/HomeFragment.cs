@@ -32,7 +32,7 @@ namespace FSWCore
             View view = inflater.Inflate(Resource.Layout.Home, container, false);
 
             TextView tvNomeUsuario = view.FindViewById<TextView>(Resource.Id.tv_nome_usuario);
-            tvNomeUsuario.Text = MainActivity.usuario.Nome;
+            tvNomeUsuario.Text = "Bem-Vindo\n" + MainActivity.usuario.Nome;
 
             return view;
         }

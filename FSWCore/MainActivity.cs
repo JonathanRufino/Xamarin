@@ -15,11 +15,11 @@ namespace FSWCore
     [Activity(Label = "FSWCore", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        string TAG = "Prova Oral - MainActivity";
         public static Usuario usuario;
-        string[] opcoesMenu = { "Início", "Excluir Conta", "Editar Conta", "Sair" };
-        ListView menu;
-        DrawerLayout layoutMenu;
+        private string TAG = "Prova Oral - MainActivity";
+        private string[] opcoesMenu = { "Início", "Excluir Conta", "Editar Conta", "Sair" };
+        private ListView menu;
+        private DrawerLayout layoutMenu;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -29,7 +29,8 @@ namespace FSWCore
             DatabaseHelper db = new DatabaseHelper();
             db.criarDB();
 
-            ArrayAdapter adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, opcoesMenu);
+            //ArrayAdapter adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, opcoesMenu);
+            MenuAdapter adapter = new MenuAdapter(this, opcoesMenu);
 
             layoutMenu = FindViewById<DrawerLayout>(Resource.Id.dl_menu);
             menu = FindViewById<ListView>(Resource.Id.menu);
