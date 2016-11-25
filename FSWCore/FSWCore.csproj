@@ -95,11 +95,13 @@
   <ItemGroup>
     <Compile Include="CadastroFragment.cs" />
     <Compile Include="DatabaseHelper.cs" />
+    <Compile Include="EditaCadastroFragment.cs" />
     <Compile Include="FSWExceptions.cs" />
+    <Compile Include="Hash.cs" />
     <Compile Include="LoginFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="HomeFragment.cs" />
-    <Compile Include="Menu.cs" />
+    <Compile Include="MascaraCampo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs" />
@@ -127,6 +129,9 @@
     <AndroidResource Include="Resources\layout\Home.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\EditaCadastro.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sqlite-net">
@@ -142,6 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Colors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -34,8 +34,9 @@ public class Usuario
             + this.GetType().Name + ": "
             + "CPF={0}, "
             + "Nome={1}, "
-            + "DataNascimento={2}"
+            + "DataNascimento={2}, "
+            + "Senha={3}"
             + "]",
-            CPF, Nome, DataNascimento.Date.ToShortDateString());
+            CPF, Nome, DataNascimento.Date.ToShortDateString(), Senha);
     }
 }

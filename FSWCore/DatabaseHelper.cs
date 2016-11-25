@@ -60,7 +60,7 @@ namespace FSWCore
         {
             try
             {
-                db.Query<Usuario>("UPDATE Usuario SET CPF=?, Nome=?, Senha=?, DataNascimento=? WHERE CPF=?", usuario.CPF, usuario.Nome, usuario.Senha, CPF);
+                db.Query<Usuario>("UPDATE Usuario SET CPF=?, Nome=?, Senha=?, DataNascimento=? WHERE CPF=?", usuario.CPF, usuario.Nome, usuario.Senha, usuario.DataNascimento, CPF);
 
                 return true;
             }

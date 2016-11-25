@@ -2,13 +2,17 @@
 <resources>
     <string name="nome_app">FSWCore</string>
 
+    <!-- Campos -->
     <string name="cpf">CPF</string>
     <string name="senha">Senha</string>
+    <string name="nome">Nome</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="data_nascimento">Data de Nascimento</string>
+    <string name="senha">Senha</string>
+    
+    <!-- Botões -->
     <string name="cadastre_se">Cadastre-se</string>
     <string name="logar">Entrar</string>
-  <string name="nome">Nome</string>
-  <string name="sobrenome">Sobrenome</string>
-  <string name="data_nascimento">Data de Nascimento</string>
-  <string name="senha">Senha</string>
-  <string name="cadastrar">Cadastrar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="salvar">Salvar</string>
 </resources>

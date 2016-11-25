@@ -19,7 +19,12 @@ namespace FSWCore
     public class CadastroFragment : Fragment
     {
         string TAG = "CadastroFragment";
-        Context context;
+        private Context context;
+        private EditText etNome;
+        private EditText etDataNascimento;
+        private EditText etCPF;
+        private EditText etSenha;
+        private Button bCadastrar;
 
         public CadastroFragment(Context context)
         {
@@ -35,20 +40,21 @@ namespace FSWCore
         {
             View view = inflater.Inflate(Resource.Layout.Cadastro, container, false);
 
-            EditText etNome = view.FindViewById<EditText>(Resource.Id.et_nome);
-            EditText etDataNascimento = view.FindViewById<EditText>(Resource.Id.et_data_nascimento);
-            EditText etCPF = view.FindViewById<EditText>(Resource.Id.et_cpf);
-            EditText etSenha = view.FindViewById<EditText>(Resource.Id.et_senha);
-            Button bCadastrar = view.FindViewById<Button>(Resource.Id.b_cadastrar);
+            etNome = view.FindViewById<EditText>(Resource.Id.et_nome);
+            etDataNascimento = view.FindViewById<EditText>(Resource.Id.et_data_nascimento);
+            etCPF = view.FindViewById<EditText>(Resource.Id.et_cpf);
+            etSenha = view.FindViewById<EditText>(Resource.Id.et_senha);
+            bCadastrar = view.FindViewById<Button>(Resource.Id.b_cadastrar);
+
+            etCPF.AddTextChangedListener(new MascaraCampo(etCPF, MascaraCampo.CPF));
+            etDataNascimento.AddTextChangedListener(new MascaraCampo(etDataNascimento, MascaraCampo.DATA));
 
             bCadastrar.Click += (object sender, EventArgs eventArgs) =>
             {
                 Usuario usuario = new Usuario();
                 usuario.Nome = etNome.Text;
-                usuario.CPF = etCPF.Text;
-                usuario.Senha = etSenha.Text;
-
-                Console.WriteLine("Salvando Usuário: " + usuario.toString());
+                usuario.CPF = MascaraCampo.removerMascara(etCPF.Text);
+                usuario.Senha = Hash.gerarHash(etSenha.Text);
 
                 ProgressDialog barraProgresso = new ProgressDialog(context);
                 barraProgresso.SetMessage("Registrando usuário.");
@@ -57,16 +63,11 @@ namespace FSWCore
 
                 new Thread(new ThreadStart(delegate
                 {
-                    try
-                    {
-                        DatabaseHelper db = new DatabaseHelper();
-                        bool sucesso = db.salvarUsuario(usuario);
+                    DatabaseHelper db = new DatabaseHelper();
 
-                        if (!sucesso)
-                        {
-                            Toast.MakeText(context, "Erro ao cadastrar usuário. Tente novamente.", ToastLength.Long).Show();
-                        }
-                        else
+                    if (db.buscarUsuario(usuario.CPF) == null)
+                    {
+                        if (db.salvarUsuario(usuario))
                         {
                             MainActivity.usuario = usuario;
 
@@ -75,20 +76,19 @@ namespace FSWCore
                             editorPreferencias.PutString("CPF", usuario.CPF);
                             editorPreferencias.Apply();
 
-                            HomeFragment homeFragment = new HomeFragment(context);
-
-                            ((MainActivity)context).trocarFragment(homeFragment, "HomeFragment");
+                            ((MainActivity)context).trocarFragment(new HomeFragment(context), "HomeFragment");
+                        }
+                        else
+                        {
+                            Toast.MakeText(context, "Erro ao cadastrar usuário. Tente novamente.", ToastLength.Long).Show();
+                            
                         }
                     }
-                    catch (RegistroDuplicadoException excecao)
+                    else
                     {
-                        Log.Info(TAG, "Exceção: " + excecao.Message);
                         Toast.MakeText(context, "Usuário já registrado", ToastLength.Long).Show();
                     }
-                    finally
-                    {
-                        barraProgresso.Dismiss();
-                    }
+                    barraProgresso.Dismiss();
                 })).Start();
             };
 

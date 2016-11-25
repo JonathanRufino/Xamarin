@@ -8,15 +8,16 @@ using Android.Content;
 using Android.Preferences;
 using static Android.Widget.AdapterView;
 using Android.Support.V4.Widget;
+using Java.Lang;
 
 namespace FSWCore
 {
     [Activity(Label = "FSWCore", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        string TAG = "MainActivity";
+        string TAG = "Prova Oral - MainActivity";
         public static Usuario usuario;
-        string[] opcoesMenu = { "Sair" };
+        string[] opcoesMenu = { "Início", "Excluir Conta", "Editar Conta", "Sair" };
         ListView menu;
         DrawerLayout layoutMenu;
 
@@ -35,7 +36,38 @@ namespace FSWCore
             menu.Adapter = adapter;
             menu.ItemClick += (object sender, ItemClickEventArgs evento) =>
             {
-                if (menu.GetItemAtPosition(evento.Position).Equals("Sair"))
+                if (menu.GetItemAtPosition(evento.Position).Equals("Início"))
+                {
+                    trocarFragment(new HomeFragment(this), "HomeFragment");
+                }
+                else if (menu.GetItemAtPosition(evento.Position).Equals("Excluir Conta"))
+                {
+                    layoutMenu.CloseDrawers();
+
+                    AlertDialog.Builder alertaDeletarConta = new AlertDialog.Builder(this);
+                    alertaDeletarConta.SetTitle("Atenção");
+                    alertaDeletarConta.SetMessage("Tem certeza que deseja excluir esta conta?");
+                    alertaDeletarConta.SetPositiveButton("Excluir", (senderAlert, args) =>
+                    {
+                        if (db.removerUsuario(usuario.CPF))
+                        {
+                            deslogar();
+                        }
+                        else
+                        {
+                            Toast.MakeText(this, "Erro ao excluir conta. Tente novamente", ToastLength.Long).Show();
+                        }
+                    });
+                    alertaDeletarConta.SetNegativeButton("Cancelar", (senderAlert, args) =>
+                    {
+
+                    }).Show();
+                }
+                else if (menu.GetItemAtPosition(evento.Position).Equals("Editar Conta"))
+                {
+                    trocarFragment(new EditaCadastroFragment(this), "EditaCadastroFragment");
+                }
+                else if (menu.GetItemAtPosition(evento.Position).Equals("Sair"))
                 {
                     deslogar();
                 }
@@ -47,7 +79,7 @@ namespace FSWCore
         public override void OnBackPressed()
         {
             base.OnBackPressed();
-            // implementar
+            // implementar retorno de fragments
         }
 
         private void carregarFragment()
@@ -58,13 +90,11 @@ namespace FSWCore
 
             if (usuario == null)
             {
-                Log.Info(TAG, "Usuário deslogado");
                 fragment = new LoginFragment(this);
                 fragmentTag = "LoginFragment";
             }
             else
             {
-                Log.Info(TAG, "Usuário já está logado");
                 fragment = new HomeFragment(this);
                 fragmentTag = "HomeFragment";
             }
@@ -83,6 +113,7 @@ namespace FSWCore
 
         public void trocarFragment(Fragment fragment, string fragmentTag)
         {
+            layoutMenu.CloseDrawers();
             var gerenciadorFragments = FragmentManager.BeginTransaction();
             gerenciadorFragments.Replace(Resource.Id.main_layout, fragment, fragmentTag);
             gerenciadorFragments.SetTransition(FragmentTransit.EnterMask);
@@ -91,17 +122,17 @@ namespace FSWCore
 
         private void deslogar()
         {
-            removerUsuario(usuario.CPF);
+            removerUsuario("CPF");
             usuario = null;
             layoutMenu.CloseDrawers();
             trocarFragment(new LoginFragment(this), "LoginFragment");
         }
 
-        private void removerUsuario(string CPF)
+        private void removerUsuario(string chave)
         {
             ISharedPreferences preferencias = PreferenceManager.GetDefaultSharedPreferences(this);
             ISharedPreferencesEditor editorPreferencias = preferencias.Edit();
-            editorPreferencias.Remove(CPF);
+            editorPreferencias.Remove(chave);
             editorPreferencias.Apply();
         }
     }

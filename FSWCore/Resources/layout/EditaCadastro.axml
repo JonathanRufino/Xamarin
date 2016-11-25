@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <EditText
+        android:id="@+id/et_cpf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/cpf" />
+    <EditText
         android:id="@+id/et_nome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,20 +22,14 @@
         android:inputType="date"
         android:hint="@string/data_nascimento" />
     <EditText
-        android:id="@+id/et_cpf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/cpf"/>
-    <EditText
         android:id="@+id/et_senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="@string/senha" />
     <Button
-        android:id="@+id/b_cadastrar"
+        android:id="@+id/b_salvar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/cadastrar" />
+        android:hint="@string/salvar" />
 </LinearLayout>
